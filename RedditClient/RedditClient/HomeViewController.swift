@@ -7,11 +7,10 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class HomeViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects = [Any]()
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +63,12 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostListingCell", for: indexPath) as? PostListingCell else {
+            return UITableViewCell()
+        }
+        
         let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
+        cell.postTitle.text = object.description
         return cell
     }
 

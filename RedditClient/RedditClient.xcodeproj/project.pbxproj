@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		8AC9087223D8C93600EEB6AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087123D8C93600EEB6AC /* AppDelegate.swift */; };
 		8AC9087423D8C93600EEB6AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087323D8C93600EEB6AC /* SceneDelegate.swift */; };
-		8AC9087623D8C93600EEB6AC /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087523D8C93600EEB6AC /* MasterViewController.swift */; };
+		8AC9087623D8C93600EEB6AC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087523D8C93600EEB6AC /* HomeViewController.swift */; };
 		8AC9087823D8C93600EEB6AC /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087723D8C93600EEB6AC /* DetailViewController.swift */; };
 		8AC9087B23D8C93600EEB6AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AC9087923D8C93600EEB6AC /* Main.storyboard */; };
 		8AC9087D23D8C93800EEB6AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC9087C23D8C93800EEB6AC /* Assets.xcassets */; };
 		8AC9088023D8C93800EEB6AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AC9087E23D8C93800EEB6AC /* LaunchScreen.storyboard */; };
 		8AC9088B23D8C93800EEB6AC /* RedditClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9088A23D8C93800EEB6AC /* RedditClientTests.swift */; };
+		8AC9089623D8D04600EEB6AC /* PostListingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9089523D8D04600EEB6AC /* PostListingCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +32,7 @@
 		8AC9086E23D8C93600EEB6AC /* RedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC9087123D8C93600EEB6AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AC9087323D8C93600EEB6AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8AC9087523D8C93600EEB6AC /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		8AC9087523D8C93600EEB6AC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		8AC9087723D8C93600EEB6AC /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8AC9087A23D8C93600EEB6AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8AC9087C23D8C93800EEB6AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -40,6 +41,7 @@
 		8AC9088623D8C93800EEB6AC /* RedditClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedditClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC9088A23D8C93800EEB6AC /* RedditClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditClientTests.swift; sourceTree = "<group>"; };
 		8AC9088C23D8C93800EEB6AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AC9089523D8D04600EEB6AC /* PostListingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +85,8 @@
 			children = (
 				8AC9087123D8C93600EEB6AC /* AppDelegate.swift */,
 				8AC9087323D8C93600EEB6AC /* SceneDelegate.swift */,
-				8AC9087523D8C93600EEB6AC /* MasterViewController.swift */,
+				8AC9087523D8C93600EEB6AC /* HomeViewController.swift */,
+				8AC9089523D8D04600EEB6AC /* PostListingCell.swift */,
 				8AC9087723D8C93600EEB6AC /* DetailViewController.swift */,
 				8AC9087923D8C93600EEB6AC /* Main.storyboard */,
 				8AC9087C23D8C93800EEB6AC /* Assets.xcassets */,
@@ -204,7 +207,8 @@
 			files = (
 				8AC9087223D8C93600EEB6AC /* AppDelegate.swift in Sources */,
 				8AC9087423D8C93600EEB6AC /* SceneDelegate.swift in Sources */,
-				8AC9087623D8C93600EEB6AC /* MasterViewController.swift in Sources */,
+				8AC9087623D8C93600EEB6AC /* HomeViewController.swift in Sources */,
+				8AC9089623D8D04600EEB6AC /* PostListingCell.swift in Sources */,
 				8AC9087823D8C93600EEB6AC /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
