@@ -18,6 +18,7 @@ class PostList: Decodable {
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let data = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-        posts = try data.decodeIfPresent([PostItem].self, forKey: .children)
+        let items = try data.decodeIfPresent([PostItem].self, forKey: .children)
+        posts = items
     }
 }

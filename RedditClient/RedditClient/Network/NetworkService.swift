@@ -22,10 +22,7 @@ class NetworkService {
             }
             
             dataTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
-              defer {
-                self?.dataTask = nil
-              }
-              
+              defer { self?.dataTask = nil }
               
               if let error = error {
                print(error.localizedDescription)
@@ -34,15 +31,17 @@ class NetworkService {
                 let response = response as? HTTPURLResponse,
                 response.statusCode == 200 {
                 
-                let postList = try? JSONDecoder().decode(PostList.self, from: data)
-                
-                DispatchQueue.main.async {
-                  completion(postList)
+                do {
+                    let postList = try JSONDecoder().decode(PostList.self, from: data)
+                    DispatchQueue.main.async {
+                      completion(postList)
+                    }
+                } catch let e {
+                    print(e)
                 }
               }
             }
             
-            // 7
             dataTask?.resume()
         }
     }

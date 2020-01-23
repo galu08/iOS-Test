@@ -40,9 +40,10 @@ class PostItem: Decodable {
         numComments = try data.decodeIfPresent(Int.self, forKey: .numComments)
         
         // Decode images
-        let previewContainer = try data.nestedContainer(keyedBy: CodingKeys.self, forKey: .preview)
-        let images = try previewContainer.decodeIfPresent([PostImages].self, forKey: .images)
-        postImages = images?.first?.resolutions
+        if let previewContainer = try? data.nestedContainer(keyedBy: CodingKeys.self, forKey: .preview),
+            let images = try? previewContainer.decodeIfPresent([PostImages].self, forKey: .images) {
+            postImages = images.first?.resolutions
+        }
     }
 }
 

@@ -9,42 +9,42 @@ import UIKit
 
 class HomeViewController: UITableViewController {
 
-    var detailViewController: DetailViewController? = nil
-    var objects = [PostItem]()
-
+    private var detailViewController: DetailViewController? = nil
+    private let viewModel: HomeViewModel
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        viewModel = HomeViewModel()
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        viewModel.listener = self
+    }
+    
+    required init?(coder: NSCoder) {
+        viewModel = HomeViewModel()
+        super.init(coder: coder)
+        viewModel.listener = self
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let deleteAllButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeAllPosts(_:)))
-        navigationItem.rightBarButtonItem = deleteAllButton
+        addDeleteAllButton()
         
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
         
-        NetworkService().getTopPosts(completion: { topPost in
-            
-            guard let posts = topPost?.posts else { return }
-            self.objects = posts
-            self.tableView.reloadData()
-        })
+        viewModel.downloadTopPosts()
+    }
+    
+    private func addDeleteAllButton() {
+        let deleteAllButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeAllPosts(_:)))
+        navigationItem.rightBarButtonItem = deleteAllButton
     }
 
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
-    }
-
-    @objc
-    func removeAllPosts(_ sender: Any) {
-
-        tableView.beginUpdates()
-        for idx in 0..<objects.count {
-            tableView.deleteRows(at: [IndexPath(row: idx, section: 0)], with: .automatic)
-        }
-        objects.removeAll()
-        tableView.endUpdates()
     }
 
     // MARK: - Segues
@@ -53,29 +53,45 @@ class HomeViewController: UITableViewController {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = objects[indexPath.row]
+                controller.detailItem = viewModel.getPost(at: indexPath.row)
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 detailViewController = controller
             }
         }
     }
+}
 
-    // MARK: - Table View
+// MARK:- Actions
+extension HomeViewController {
+    
+    @objc func removeAllPosts(_ sender: Any) {
+        tableView.beginUpdates()
+        for idx in 0..<viewModel.getNumberOfPosts() {
+            tableView.deleteRows(at: [IndexPath(row: idx, section: 0)], with: .automatic)
+        }
+        viewModel.removeAllPosts()
+        tableView.endUpdates()
+    }
+}
 
+// MARK:- TableView Delegate & DataSource
+extension HomeViewController {
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return viewModel.getNumberOfPosts()
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostListingCell", for: indexPath) as? PostListingCell,
-            let post = objects[indexPath.row] as? PostItem  else {
+        let post = viewModel.getPost(at: indexPath.row) else {
             return UITableViewCell()
         }
+        
         cell.setup(authorName: post.author,
                    postTitle: post.title,
                    date: "",
@@ -92,8 +108,15 @@ extension HomeViewController: DeleteableCell {
         guard let indexPathToDelete = tableView.indexPath(for: cell) else { return }
         tableView.beginUpdates()
         tableView.deleteRows(at: [indexPathToDelete], with: .automatic)
-        objects.remove(at: indexPathToDelete.row)
+        viewModel.removePost(at: indexPathToDelete.row)
         tableView.endUpdates()
     }
 }
 
+extension HomeViewController: HomeViewModelListener {
+    
+    func didFinishDownloadPosts() {
+        tableView.reloadData()
+    }
+    
+}
