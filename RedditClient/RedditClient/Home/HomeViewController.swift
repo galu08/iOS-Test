@@ -29,6 +29,13 @@ class HomeViewController: UITableViewController {
         }
         
         viewModel.downloadTopPosts()
+        setupRefreshControl()
+    }
+    
+    private func setupRefreshControl() {
+        let refreshPostsControl = UIRefreshControl()
+        refreshPostsControl.addTarget(self, action: #selector(refreshPosts(_:)), for: .valueChanged)
+        refreshControl = refreshPostsControl
     }
     
     private func addDeleteAllButton() {
@@ -66,6 +73,11 @@ extension HomeViewController {
         }
         viewModel.removeAllPosts()
         tableView.endUpdates()
+    }
+    
+    @objc func refreshPosts(_ sender: Any) {
+        refreshControl?.beginRefreshing()
+        viewModel.downloadTopPosts()
     }
 }
 
@@ -133,5 +145,8 @@ extension HomeViewController: HomeViewModelListener {
     
     func didFinishDownloadPosts() {
         tableView.reloadData()
+        if let refreshControl = refreshControl, refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
     }
 }
