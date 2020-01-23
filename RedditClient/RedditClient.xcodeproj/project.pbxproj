@@ -11,6 +11,7 @@
 		8A65569423D91A1D008C8313 /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A65569323D91A1D008C8313 /* PostList.swift */; };
 		8A65569623D921CC008C8313 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A65569523D921CC008C8313 /* HomeViewModel.swift */; };
 		8A65569823DA0EA6008C8313 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 8A65569723DA0EA6008C8313 /* Localizable.stringsdict */; };
+		8A6D09AB23DA3765009797A4 /* TopPostParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D09AA23DA3765009797A4 /* TopPostParams.swift */; };
 		8AC9087223D8C93600EEB6AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087123D8C93600EEB6AC /* AppDelegate.swift */; };
 		8AC9087423D8C93600EEB6AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087323D8C93600EEB6AC /* SceneDelegate.swift */; };
 		8AC9087623D8C93600EEB6AC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087523D8C93600EEB6AC /* HomeViewController.swift */; };
@@ -39,6 +40,7 @@
 		8A65569323D91A1D008C8313 /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		8A65569523D921CC008C8313 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		8A65569723DA0EA6008C8313 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		8A6D09AA23DA3765009797A4 /* TopPostParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPostParams.swift; sourceTree = "<group>"; };
 		8AC9086E23D8C93600EEB6AC /* RedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC9087123D8C93600EEB6AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AC9087323D8C93600EEB6AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				8AC9089A23D8D84B00EEB6AC /* NetworkService.swift */,
+				8A6D09AA23DA3765009797A4 /* TopPostParams.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				8A65569223D919F4008C8313 /* PostImage.swift in Sources */,
 				8AC9087623D8C93600EEB6AC /* HomeViewController.swift in Sources */,
 				8AC9089623D8D04600EEB6AC /* PostListingCell.swift in Sources */,
+				8A6D09AB23DA3765009797A4 /* TopPostParams.swift in Sources */,
 				8AC9089B23D8D84B00EEB6AC /* NetworkService.swift in Sources */,
 				8AC9087823D8C93600EEB6AC /* DetailViewController.swift in Sources */,
 			);

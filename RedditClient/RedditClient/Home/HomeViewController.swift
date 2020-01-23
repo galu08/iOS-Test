@@ -116,6 +116,7 @@ extension HomeViewController {
     }
 }
 
+//MARK:- DeleteableCell
 extension HomeViewController: DeleteableCell {
     
     func userDidDelete(cell: UITableViewCell) {
@@ -127,6 +128,7 @@ extension HomeViewController: DeleteableCell {
     }
 }
 
+//MARK:- HomeViewModelListener
 extension HomeViewController: HomeViewModelListener {
     
     func didFinishDownloadPosts() {
