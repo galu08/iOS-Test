@@ -10,19 +10,25 @@ import UIKit
 class HomeViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var objects = [Any]()
+    var objects = [PostItem]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        navigationItem.leftBarButtonItem = editButtonItem
 
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
+        let deleteAllButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeAllPosts(_:)))
+        navigationItem.rightBarButtonItem = deleteAllButton
+        
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        NetworkService().getTopPosts(completion: { topPost in
+            
+            guard let posts = topPost?.posts else { return }
+            self.objects = posts
+            self.tableView.reloadData()
+        })
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -31,10 +37,14 @@ class HomeViewController: UITableViewController {
     }
 
     @objc
-    func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
+    func removeAllPosts(_ sender: Any) {
+
+        tableView.beginUpdates()
+        for idx in 0..<objects.count {
+            tableView.deleteRows(at: [IndexPath(row: idx, section: 0)], with: .automatic)
+        }
+        objects.removeAll()
+        tableView.endUpdates()
     }
 
     // MARK: - Segues
@@ -42,9 +52,8 @@ class HomeViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
+                controller.detailItem = objects[indexPath.row]
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 detailViewController = controller
@@ -63,12 +72,15 @@ class HomeViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostListingCell", for: indexPath) as? PostListingCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostListingCell", for: indexPath) as? PostListingCell,
+            let post = objects[indexPath.row] as? PostItem  else {
             return UITableViewCell()
         }
         
-        let object = objects[indexPath.row] as! NSDate
-        cell.postTitle.text = object.description
+        cell.postTitle.text = post.title
+        cell.authorName.text = post.author
+        cell.commentLabel.text = "\(post.numComments ?? 0 )"
+        
         return cell
     }
 

@@ -9,14 +9,19 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-
+    @IBOutlet weak var postDescription: UILabel!
+    @IBOutlet weak var postImageView: UIImageView!
 
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
+            
+            if let label = postDescription {
+                self.title = detail.title
+            }
+            
+            if let imageView = postImageView {
+                //download image
             }
         }
     }
@@ -27,7 +32,7 @@ class DetailViewController: UIViewController {
         configureView()
     }
 
-    var detailItem: NSDate? {
+    var detailItem: PostItem? {
         didSet {
             // Update the view.
             configureView()
