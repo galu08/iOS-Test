@@ -25,14 +25,40 @@ class PostListingCell: UITableViewCell {
     func setup(authorName: String?,
                postTitle: String?,
                date: String,
-               imageURL: String,
+               imageURL: String?,
                commentsCount: String) {
         self.authorName.text = authorName
         self.postDate.text = date
         self.postTitle.text = postTitle
         self.commentLabel.text = commentsCount
         
-        // download image
+        if let stringURL = imageURL {
+            NetworkService().downloadImage(stringURL: stringURL) { (downloadedURL, data) in
+                if let imageData = data, downloadedURL.absoluteString == stringURL {
+                    self.set(image: UIImage(data: imageData), withAnimation: true)
+                }
+            }
+        }
+    }
+    
+    private func set(image: UIImage?, withAnimation animate: Bool) {
+        DispatchQueue.main.async {
+            if animate {
+                UIView.transition(with: self.postImage,
+                duration: 0.75,
+                options: .transitionCrossDissolve,
+                animations: { self.postImage.image = image },
+                completion: nil)
+            } else {
+                self.postImage.image = image
+            }
+            
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        postImage.image = nil
     }
     
     @IBAction func didPressDelete() {

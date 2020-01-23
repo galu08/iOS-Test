@@ -12,7 +12,7 @@ class PostItem: Decodable {
     var author: String?
     var title: String?
     var thumbnail: String?
-    var created: Double?
+    var created: TimeInterval?
     var postImages: [PostImage]?
     var numComments: Int?
     
@@ -36,7 +36,7 @@ class PostItem: Decodable {
         author = try data.decodeIfPresent(String.self, forKey: .author)
         title = try data.decodeIfPresent(String.self, forKey: .title)
         thumbnail = try data.decodeIfPresent(String.self, forKey: .thumbnail)
-        created = try data.decodeIfPresent(Double.self, forKey: .created)
+        created = try data.decodeIfPresent(TimeInterval.self, forKey: .created)
         numComments = try data.decodeIfPresent(Int.self, forKey: .numComments)
         
         // Decode images

@@ -26,7 +26,8 @@ final class HomeViewModel: HomeViewModelable {
     weak var listener: HomeViewModelListener?
     
     func downloadTopPosts() {
-        NetworkService().getTopPosts(completion: { [weak self] topPost in
+        let params = TopPostParams()
+        NetworkService().getTopPosts(params: params, completion: { [weak self] topPost in
             
             guard let posts = topPost?.posts else { return }
             self?.postItems = posts

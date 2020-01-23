@@ -12,12 +12,6 @@ class HomeViewController: UITableViewController {
     private var detailViewController: DetailViewController? = nil
     private let viewModel: HomeViewModel
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        viewModel = HomeViewModel()
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        viewModel.listener = self
-    }
-    
     required init?(coder: NSCoder) {
         viewModel = HomeViewModel()
         super.init(coder: coder)
@@ -91,14 +85,34 @@ extension HomeViewController {
         let post = viewModel.getPost(at: indexPath.row) else {
             return UITableViewCell()
         }
+
+        let postImages = post.postImages ?? []
+        let smallerImageURL = getSmallerImageURL(images: postImages)
         
         cell.setup(authorName: post.author,
                    postTitle: post.title,
-                   date: "",
-                   imageURL: "",
+                   date: getHoursAgo(fromDateCreated: post.created),
+                   imageURL: smallerImageURL,
                    commentsCount: "\(post.numComments ?? 0 )")
         cell.delegate = self
         return cell
+    }
+    
+    private func getSmallerImageURL(images: [PostImage]) -> String? {
+        return images.last?.url
+    }
+    
+    /// Returns the time difference in hours from the given time until now.
+    /// - Parameter time: Time interval to calculate
+    private func getHoursAgo(fromDateCreated time: TimeInterval?) -> String {
+        guard let time = time else { return "-" }
+        
+        let from = Date(timeIntervalSince1970: time)
+        let unitFlags = Set<Calendar.Component>([.hour])
+        let components = Calendar.current.dateComponents(unitFlags, from: from, to: Date())
+        let hours = components.hour ?? 0
+        
+        return String(format: NSLocalizedString("HOURS_AGO", comment:"hours from now"), hours)
     }
 }
 
@@ -118,5 +132,4 @@ extension HomeViewController: HomeViewModelListener {
     func didFinishDownloadPosts() {
         tableView.reloadData()
     }
-    
 }
