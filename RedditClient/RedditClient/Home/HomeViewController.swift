@@ -76,28 +76,24 @@ class HomeViewController: UITableViewController {
             let post = objects[indexPath.row] as? PostItem  else {
             return UITableViewCell()
         }
-        
-        cell.postTitle.text = post.title
-        cell.authorName.text = post.author
-        cell.commentLabel.text = "\(post.numComments ?? 0 )"
-        
+        cell.setup(authorName: post.author,
+                   postTitle: post.title,
+                   date: "",
+                   imageURL: "",
+                   commentsCount: "\(post.numComments ?? 0 )")
+        cell.delegate = self
         return cell
     }
+}
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+extension HomeViewController: DeleteableCell {
+    
+    func userDidDelete(cell: UITableViewCell) {
+        guard let indexPathToDelete = tableView.indexPath(for: cell) else { return }
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPathToDelete], with: .automatic)
+        objects.remove(at: indexPathToDelete.row)
+        tableView.endUpdates()
     }
-
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            objects.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-        }
-    }
-
-
 }
 
