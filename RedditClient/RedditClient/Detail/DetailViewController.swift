@@ -17,18 +17,17 @@ class DetailViewController: UIViewController {
         if let detail = detailItem {
             
             if let label = postDescription {
-                self.title = detail.title
+                label.text = detail.title
             }
             
             if let imageView = postImageView {
-                //download image
+                setupImage()
             }
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         configureView()
     }
 
@@ -38,7 +37,15 @@ class DetailViewController: UIViewController {
             configureView()
         }
     }
-
-
+    
+    private func setupImage() {
+        guard let stringURL = detailItem?.postImages?.last?.url else { return }
+        
+        NetworkService().downloadImage(stringURL: stringURL) { (downloadedURL, data) in
+            if let imageData = data, downloadedURL.absoluteString == stringURL {
+                self.postImageView.image = UIImage(data: imageData)
+            }
+        }
+    }
 }
 
