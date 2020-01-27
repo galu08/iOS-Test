@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeViewController: UITableViewController {
-
+    
     private var detailViewController: DetailViewController? = nil
     private let viewModel: HomeViewModel
     
@@ -20,7 +20,7 @@ class HomeViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         addDeleteAllButton()
         
         if let split = splitViewController {
@@ -42,14 +42,15 @@ class HomeViewController: UITableViewController {
         let deleteAllButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeAllPosts(_:)))
         navigationItem.rightBarButtonItem = deleteAllButton
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        tableView.reloadData()
     }
-
+    
     // MARK: - Segues
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -87,28 +88,39 @@ extension HomeViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getNumberOfPosts()
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostListingCell", for: indexPath) as? PostListingCell,
-        let post = viewModel.getPost(at: indexPath.row) else {
-            return UITableViewCell()
+            let post = viewModel.getPost(at: indexPath.row) else {
+                return UITableViewCell()
         }
-
+        
         let postImages = post.postImages ?? []
         let smallerImageURL = getSmallerImageURL(images: postImages)
+        let wasRead = viewModel.wasRead(index: indexPath.row)
         
         cell.setup(authorName: post.author,
                    postTitle: post.title,
                    date: getHoursAgo(fromDateCreated: post.created),
                    imageURL: smallerImageURL,
-                   commentsCount: "\(post.numComments ?? 0 )")
+                   commentsCount: "\(post.numComments ?? 0 )",
+                   read: wasRead)
+        
         cell.delegate = self
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelect(index: indexPath.row)
+    }
+}
+
+//MARK:- Helpers
+extension HomeViewController {
     
     private func getSmallerImageURL(images: [PostImage]) -> String? {
         return images.last?.url
@@ -127,6 +139,7 @@ extension HomeViewController {
         return String(format: NSLocalizedString("HOURS_AGO", comment:"hours from now"), hours)
     }
 }
+
 
 //MARK:- DeleteableCell
 extension HomeViewController: DeleteableCell {

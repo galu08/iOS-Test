@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -138,27 +139,28 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zed-uG-fuo">
                                             <rect key="frame" x="20" y="282" width="374" height="40"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="196" translatesAutoresizingMaskIntoConstraints="NO" id="UFU-yh-QuU">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="UFU-yh-QuU">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjk-nu-uka">
-                                                            <rect key="frame" x="0.0" y="0.0" width="97" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="40"/>
                                                             <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="hmr-0w-qWK"/>
+                                                                <constraint firstAttribute="width" constant="50" id="zXR-F9-URU"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <state key="normal" title="Delete" image="trash" catalog="system">
+                                                            <state key="normal" image="trash" catalog="system">
                                                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             </state>
                                                             <connections>
                                                                 <action selector="didPressDelete" destination="WCw-Qf-5nD" eventType="touchUpInside" id="dHl-pK-VYU"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mg2-xk-ajz">
-                                                            <rect key="frame" x="293" y="0.0" width="81" height="40"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="241" verticalHuggingPriority="251" text="comments" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mg2-xk-ajz">
+                                                            <rect key="frame" x="273" y="0.0" width="101" height="40"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -172,22 +174,32 @@
                                                 <constraint firstItem="UFU-yh-QuU" firstAttribute="leading" secondItem="zed-uG-fuo" secondAttribute="leading" id="zbs-MQ-QcK"/>
                                             </constraints>
                                         </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgf-l2-fdf" userLabel="read indicator">
+                                            <rect key="frame" x="2" y="158.5" width="16" height="16"/>
+                                            <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="16" id="FZM-yH-SBG"/>
+                                                <constraint firstAttribute="height" constant="16" id="jQT-xq-khl"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="QO3-tu-VeF" firstAttribute="trailing" secondItem="37f-cq-3Eg" secondAttribute="trailingMargin" id="0Dh-En-JL8"/>
+                                        <constraint firstItem="rgf-l2-fdf" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leading" constant="2" id="0lE-TC-Xpu"/>
+                                        <constraint firstAttribute="trailing" secondItem="MFD-ug-x6T" secondAttribute="trailing" constant="20" id="6VH-0C-In3"/>
+                                        <constraint firstItem="MFD-ug-x6T" firstAttribute="leading" secondItem="rgf-l2-fdf" secondAttribute="trailing" constant="2" id="9ry-SL-wXq"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="upA-fe-lzQ" secondAttribute="trailing" id="9wo-bX-JGL"/>
+                                        <constraint firstItem="rgf-l2-fdf" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="Fdm-Xs-GRn"/>
                                         <constraint firstItem="MFD-ug-x6T" firstAttribute="top" secondItem="QO3-tu-VeF" secondAttribute="bottom" constant="8" id="IGG-eh-0nc"/>
                                         <constraint firstItem="zed-uG-fuo" firstAttribute="top" secondItem="MFD-ug-x6T" secondAttribute="bottom" constant="8" id="Oyb-QU-cbR"/>
                                         <constraint firstItem="zed-uG-fuo" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leadingMargin" id="QwK-q3-jAh"/>
                                         <constraint firstItem="upA-fe-lzQ" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leadingMargin" id="VqK-d1-4pq"/>
-                                        <constraint firstItem="MFD-ug-x6T" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leadingMargin" id="ZVn-Zr-Sbt"/>
                                         <constraint firstItem="QO3-tu-VeF" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leadingMargin" id="cm7-QI-MOR"/>
                                         <constraint firstItem="QO3-tu-VeF" firstAttribute="top" secondItem="upA-fe-lzQ" secondAttribute="bottom" constant="8" id="ieB-pm-dIP"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="zed-uG-fuo" secondAttribute="trailing" id="sSh-ch-uDU"/>
                                         <constraint firstItem="upA-fe-lzQ" firstAttribute="top" secondItem="37f-cq-3Eg" secondAttribute="topMargin" id="tgf-de-Rfx"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="zed-uG-fuo" secondAttribute="bottom" id="w5f-OY-48g"/>
-                                        <constraint firstItem="MFD-ug-x6T" firstAttribute="trailing" secondItem="37f-cq-3Eg" secondAttribute="trailingMargin" id="x6e-4w-GyS"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -198,6 +210,7 @@
                                     <outlet property="postDate" destination="V2D-JD-LkW" id="kHV-Fe-eKs"/>
                                     <outlet property="postImage" destination="MFD-ug-x6T" id="ivF-OS-5m2"/>
                                     <outlet property="postTitle" destination="QO3-tu-VeF" id="xG9-3H-2wB"/>
+                                    <outlet property="readIndicatorView" destination="rgf-l2-fdf" id="rHP-Jj-q0D"/>
                                     <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="6S0-TO-JiA"/>
                                 </connections>
                             </tableViewCell>
@@ -235,6 +248,6 @@
         <image name="trash" catalog="system" width="60" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>

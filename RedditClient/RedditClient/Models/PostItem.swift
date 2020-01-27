@@ -32,7 +32,7 @@ class PostItem: Decodable {
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let data = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-        id = try data.decodeIfPresent(String.self, forKey: .author)
+        id = try data.decodeIfPresent(String.self, forKey: .id)
         author = try data.decodeIfPresent(String.self, forKey: .author)
         title = try data.decodeIfPresent(String.self, forKey: .title)
         thumbnail = try data.decodeIfPresent(String.self, forKey: .thumbnail)

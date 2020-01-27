@@ -13,6 +13,8 @@ protocol HomeViewModelable: class {
     func getPost(at index: Int) -> PostItem?
     func removePost(at index: Int)
     func removeAllPosts()
+    func didSelect(index: Int)
+    func wasRead(index: Int) -> Bool
 }
 
 protocol HomeViewModelListener: class {
@@ -22,6 +24,7 @@ protocol HomeViewModelListener: class {
 final class HomeViewModel: HomeViewModelable {
     
     private var postItems = [PostItem]()
+    private var readPostAction = ReadPostAction()
     
     weak var listener: HomeViewModelListener?
     
@@ -54,5 +57,15 @@ final class HomeViewModel: HomeViewModelable {
     
     func removeAllPosts() {
         postItems.removeAll()
+    }
+    
+    func didSelect(index: Int) {
+        guard let postId = postItems[index].id else { return }
+        readPostAction.markAsRead(postId: postId)
+    }
+    
+    func wasRead(index: Int) -> Bool {
+        guard let postId = postItems[index].id else { return false }
+        return readPostAction.wasRead(postId: postId)
     }
 }

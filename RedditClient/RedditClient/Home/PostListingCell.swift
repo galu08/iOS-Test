@@ -19,14 +19,21 @@ class PostListingCell: UITableViewCell {
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var readIndicatorView: UIView!
     
     weak var delegate: DeleteableCell?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        readIndicatorView.layer.cornerRadius = readIndicatorView.frame.size.height * 0.5
+    }
     
     func setup(authorName: String?,
                postTitle: String?,
                date: String,
                imageURL: String?,
-               commentsCount: String) {
+               commentsCount: String,
+               read: Bool) {
         self.authorName.text = authorName
         self.postDate.text = date
         self.postTitle.text = postTitle
@@ -39,6 +46,24 @@ class PostListingCell: UITableViewCell {
                 }
             }
         }
+        
+        if read {
+            setReadStyle()
+        } else {
+            setUnreadStyle()
+        }
+    }
+    
+    private func setReadStyle() {
+        postTitle.textColor = UIColor.systemGray4
+        postImage.alpha = 0.85
+        readIndicatorView.backgroundColor = nil
+    }
+    
+    private func setUnreadStyle() {
+        postTitle.textColor = UIColor.systemGray
+        postImage.alpha = 1
+        readIndicatorView.backgroundColor = UIColor.systemBlue
     }
     
     private func set(image: UIImage?, withAnimation animate: Bool) {

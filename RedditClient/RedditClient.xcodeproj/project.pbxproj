@@ -12,6 +12,8 @@
 		8A65569623D921CC008C8313 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A65569523D921CC008C8313 /* HomeViewModel.swift */; };
 		8A65569823DA0EA6008C8313 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 8A65569723DA0EA6008C8313 /* Localizable.stringsdict */; };
 		8A6D09AB23DA3765009797A4 /* TopPostParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D09AA23DA3765009797A4 /* TopPostParams.swift */; };
+		8A6D09AD23DA6838009797A4 /* ReadPostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6D09AC23DA6838009797A4 /* ReadPostsRepository.swift */; };
+		8A92EC1023DF5D6000C9006D /* ReadPostAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A92EC0F23DF5D6000C9006D /* ReadPostAction.swift */; };
 		8AC9087223D8C93600EEB6AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087123D8C93600EEB6AC /* AppDelegate.swift */; };
 		8AC9087423D8C93600EEB6AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087323D8C93600EEB6AC /* SceneDelegate.swift */; };
 		8AC9087623D8C93600EEB6AC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC9087523D8C93600EEB6AC /* HomeViewController.swift */; };
@@ -41,6 +43,8 @@
 		8A65569523D921CC008C8313 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		8A65569723DA0EA6008C8313 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		8A6D09AA23DA3765009797A4 /* TopPostParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPostParams.swift; sourceTree = "<group>"; };
+		8A6D09AC23DA6838009797A4 /* ReadPostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadPostsRepository.swift; sourceTree = "<group>"; };
+		8A92EC0F23DF5D6000C9006D /* ReadPostAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadPostAction.swift; sourceTree = "<group>"; };
 		8AC9086E23D8C93600EEB6AC /* RedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC9087123D8C93600EEB6AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AC9087323D8C93600EEB6AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +80,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A92EC0D23DF5D3D00C9006D /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				8A92EC0F23DF5D6000C9006D /* ReadPostAction.swift */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
+		8A92EC0E23DF5D4400C9006D /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				8A6D09AC23DA6838009797A4 /* ReadPostsRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		8AC9086523D8C93600EEB6AC = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +117,8 @@
 		8AC9087023D8C93600EEB6AC /* RedditClient */ = {
 			isa = PBXGroup;
 			children = (
+				8A92EC0E23DF5D4400C9006D /* Repository */,
+				8A92EC0D23DF5D3D00C9006D /* Actions */,
 				8AC9089C23D8DAC900EEB6AC /* Models */,
 				8AC9089923D8D81D00EEB6AC /* Network */,
 				8AC9089823D8D80500EEB6AC /* Detail */,
@@ -264,6 +286,8 @@
 				8AC9087223D8C93600EEB6AC /* AppDelegate.swift in Sources */,
 				8A65569623D921CC008C8313 /* HomeViewModel.swift in Sources */,
 				8AC9087423D8C93600EEB6AC /* SceneDelegate.swift in Sources */,
+				8A6D09AD23DA6838009797A4 /* ReadPostsRepository.swift in Sources */,
+				8A92EC1023DF5D6000C9006D /* ReadPostAction.swift in Sources */,
 				8A65569223D919F4008C8313 /* PostImage.swift in Sources */,
 				8AC9087623D8C93600EEB6AC /* HomeViewController.swift in Sources */,
 				8AC9089623D8D04600EEB6AC /* PostListingCell.swift in Sources */,
