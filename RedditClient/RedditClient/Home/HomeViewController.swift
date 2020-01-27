@@ -77,7 +77,6 @@ extension HomeViewController {
     }
     
     @objc func refreshPosts(_ sender: Any) {
-        refreshControl?.beginRefreshing()
         viewModel.downloadTopPosts()
     }
 }
@@ -121,6 +120,11 @@ extension HomeViewController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         viewModel.willShowPost(at: indexPath.row)
     }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
 }
 
 //MARK:- Helpers
@@ -162,8 +166,6 @@ extension HomeViewController: HomeViewModelListener {
     
     func didFinishDownloadPosts() {
         tableView.reloadData()
-        if let refreshControl = refreshControl, refreshControl.isRefreshing {
-            refreshControl.endRefreshing()
-        }
+        refreshControl?.endRefreshing()
     }
 }
