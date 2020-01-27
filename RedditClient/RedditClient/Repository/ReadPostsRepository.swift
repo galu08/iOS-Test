@@ -6,15 +6,21 @@
 //
 
 import Foundation
+import UIKit
 
 class ReadPostsRespository {
+    
+    init() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+    }
     
     private lazy var postsId: Set<String> = {
         guard let array = UserDefaults.standard.array(forKey: "read_posts") as? [String] else { return Set() }
         return Set(array)
     }()
     
-    deinit {
+   @objc func appMovedToBackground() {
         persistData()
     }
     
