@@ -14,6 +14,17 @@ class DetailViewController: UIViewController {
     
     var detailItem: PostItem?
     
+    /// Returns the userActivity object with the information we want to preserve. In this case the postItem object.
+    ///
+    /// Important: We shouldn't preserve the whole object, instead we should preserve the ID and then get the object from backend.
+    var detailUserActivity: NSUserActivity {
+        let userActivity = NSUserActivity(activityType: "com.RedditClient")
+        if let detail = detailItem, let detailData = try? JSONEncoder().encode(detail) {
+            userActivity.addUserInfoEntries(from: ["postItem": detailData])
+        }
+        return userActivity
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()

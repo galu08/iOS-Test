@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PostImage: Decodable {
+class PostImage: Codable {
     var url: String?
     var width: Float?
     var height: Float?

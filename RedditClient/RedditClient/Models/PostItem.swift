@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PostItem: Decodable {
+class PostItem: Codable {
     var id: String?
     var author: String?
     var title: String?
@@ -45,10 +45,32 @@ class PostItem: Decodable {
             postImages = images.first?.resolutions
         }
     }
+    
+    // We only need this to encode the PostItem in UserActivity, to preserve that data.
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        var dataContainer = container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+        
+        try dataContainer.encode(id, forKey: .id)
+        try dataContainer.encode(author, forKey: .author)
+        try dataContainer.encode(title, forKey: .title)
+        try dataContainer.encode(thumbnail, forKey: .thumbnail)
+        try dataContainer.encode(created, forKey: .numComments)
+        try dataContainer.encode(numComments, forKey: .numComments)
+        
+        var previewContainer = dataContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .preview)
+        
+        var postImagesArray = [PostImages]()
+        let postImagesElement = PostImages()
+        postImagesElement.resolutions = postImages
+        postImagesArray.append(postImagesElement)
+        
+        try previewContainer.encode(postImagesArray, forKey: .images)
+    }
 }
 
 // Just for mapping
-private class PostImages: Decodable {
+private class PostImages: Codable {
     var resolutions: [PostImage]?
 }
 
