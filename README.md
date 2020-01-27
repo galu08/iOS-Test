@@ -6,27 +6,43 @@ Here you can find the code for the exercise https://github.com/deviget/iOS-Test/
 Requirements:
 
 ✅ Pull to refresh
+
 ✅ Pagination
+
 ✅ Saving pictures in the gallery
+
 ✅ App state-preservation/restoration: Example on ItemDetailViewController, more information on how to tests this can be found here https://developer.apple.com/documentation/uikit/uiviewcontroller/restoring_your_app_s_state
+
 ✅ Read/Unread post indicator
+
 ✅ Dismiss post button
+
 ✅ Dismiss all posts
+
 ✅ Support split layout (master/detail project)
+
 ✅ URLSession
+
 ✅ Support all Device Orientation
+
 ✅ Support all Devices screen (iPhone/iPad)
+
 ✅ Use Storyboards
 
 
 Cell:
-✅ Title full length
-✅ Author
-✅ Entry date "X hours ago" (Also localized for plurals)
-✅ Thumbnail
-✅ Numbers of comments
-✅ unread status
 
+✅ Title full length
+
+✅ Author
+
+✅ Entry date "X hours ago" (Also localized for plurals)
+
+✅ Thumbnail
+
+✅ Numbers of comments
+
+✅ unread status
 
 Notes:
 I used Xcode 11.3
@@ -42,7 +58,7 @@ https://jsonformatter.curiousconcept.com
 Some examples:
 
 Saving photo
-![](https://github.com/galu08/iOS-Test/examples/example_iphone.png)
+![](https://github.com/galu08/iOS-Test/blob/master/examples/example_iphone.png)
 
 Read/Unread status
-![](https://github.com/galu08/iOS-Test/examples/example_iphone2.png)
+![](https://github.com/galu08/iOS-Test/blob/master/examples/example_iphone2.png)
