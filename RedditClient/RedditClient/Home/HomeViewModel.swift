@@ -8,6 +8,7 @@
 import Foundation
 
 protocol HomeViewModelable: class {
+    func downloadTopPosts()
     func getNumberOfPosts() -> Int
     func getTopPosts() -> [PostItem]
     func getPost(at index: Int) -> PostItem?
@@ -25,16 +26,47 @@ final class HomeViewModel: HomeViewModelable {
     
     private var postItems = [PostItem]()
     private var readPostAction = ReadPostAction()
+    private var isDownloadingMorePost: Bool = false
+    
+    private var lastPostListResponse: PostList?
+    
+    private struct Constants {
+        static let downloadMoreThreshold: Int = 5
+    }
     
     weak var listener: HomeViewModelListener?
     
     func downloadTopPosts() {
         let params = TopPostParams()
-        NetworkService().getTopPosts(params: params, completion: { [weak self] topPost in
+        isDownloadingMorePost = true
+        NetworkService().getTopPosts(params: params, completion: { [weak self] topPostResponse in
+            self?.isDownloadingMorePost = false
             
-            guard let posts = topPost?.posts else { return }
-            self?.postItems = posts
+            self?.lastPostListResponse = topPostResponse
+            self?.postItems = topPostResponse?.posts ?? []
             self?.listener?.didFinishDownloadPosts()
+        })
+    }
+    
+    private func downloadMoreTopPost() {
+        if isDownloadingMorePost { return }
+        
+        guard let after = lastPostListResponse?.after else { return }
+        
+        var params = TopPostParams()
+        params.after = after
+        params.count = postItems.count
+        
+        isDownloadingMorePost = true
+        NetworkService().getTopPosts(params: params, completion: { [weak self] topPostResponse in
+            self?.isDownloadingMorePost = false
+            
+            self?.lastPostListResponse = topPostResponse
+            
+            if let posts = topPostResponse?.posts {
+                self?.postItems += posts
+                self?.listener?.didFinishDownloadPosts()
+            }
         })
     }
     
@@ -67,5 +99,16 @@ final class HomeViewModel: HomeViewModelable {
     func wasRead(index: Int) -> Bool {
         guard let postId = postItems[index].id else { return false }
         return readPostAction.wasRead(postId: postId)
+    }
+    
+    func willShowPost(at index: Int) {
+        
+        if shouldDownloadMorePost(at: index) {
+            downloadMoreTopPost()
+        }
+    }
+    
+    private func shouldDownloadMorePost(at index: Int) -> Bool {
+        return index > (postItems.count - Constants.downloadMoreThreshold)
     }
 }

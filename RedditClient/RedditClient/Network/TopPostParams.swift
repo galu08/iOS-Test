@@ -9,7 +9,7 @@ import Foundation
 
 struct TopPostParams {
     var after: String = ""
-    var count: String = ""
+    var count: Int = 0
     var limit: Int = 20
     var jsonEncoded: Bool = false
     
@@ -20,8 +20,8 @@ struct TopPostParams {
             queryItems.append(URLQueryItem(name: "after", value: after))
         }
         
-        if !count.isEmpty {
-            queryItems.append(URLQueryItem(name: "count", value: count))
+        if count > 0 {
+            queryItems.append(URLQueryItem(name: "count", value: "\(count)"))
         }
         
         if limit > 0 {

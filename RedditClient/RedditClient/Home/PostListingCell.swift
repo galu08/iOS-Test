@@ -23,6 +23,8 @@ class PostListingCell: UITableViewCell {
     
     weak var delegate: DeleteableCell?
     
+    private var urlToDownload: String = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         readIndicatorView.layer.cornerRadius = readIndicatorView.frame.size.height * 0.5
@@ -40,8 +42,11 @@ class PostListingCell: UITableViewCell {
         self.commentLabel.text = commentsCount
         
         if let stringURL = imageURL {
+            urlToDownload = stringURL
             NetworkService().downloadImage(stringURL: stringURL) { (downloadedURL, data) in
-                if let imageData = data, downloadedURL.absoluteString == stringURL {
+               
+                // Check if we are in the right cell
+                if let imageData = data, downloadedURL.absoluteString == self.urlToDownload {
                     self.set(image: UIImage(data: imageData), withAnimation: true)
                 }
             }
@@ -67,17 +72,15 @@ class PostListingCell: UITableViewCell {
     }
     
     private func set(image: UIImage?, withAnimation animate: Bool) {
-        DispatchQueue.main.async {
-            if animate {
-                UIView.transition(with: self.postImage,
-                duration: 0.75,
-                options: .transitionCrossDissolve,
-                animations: { self.postImage.image = image },
-                completion: nil)
-            } else {
-                self.postImage.image = image
-            }
-            
+        
+        if animate {
+            UIView.transition(with: self.postImage,
+                              duration: 0.75,
+                              options: .transitionCrossDissolve,
+                              animations: { self.postImage.image = image },
+                              completion: nil)
+        } else {
+            self.postImage.image = image
         }
     }
     

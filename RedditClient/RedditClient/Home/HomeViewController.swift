@@ -117,6 +117,10 @@ extension HomeViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.didSelect(index: indexPath.row)
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        viewModel.willShowPost(at: indexPath.row)
+    }
 }
 
 //MARK:- Helpers
